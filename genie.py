@@ -120,15 +120,15 @@ def main():
         for gene, percentages in gene_percentages.items():
             data.append({
                 'Gene': gene,
-                'Ancestral Allele Percentage': f"{percentages['ancestral_percentage']:.2f}%",
-                'Derived Allele Percentage': f"{percentages['derived_percentage']:.2f}%"
+                'Derived Allele Percentage': f"{percentages['derived_percentage']:.2f}%",
+                'Ancestral Allele Percentage': f"{percentages['ancestral_percentage']:.2f}%"
             })
 
         # Create DataFrame
         df = pd.DataFrame(data)
 
         # Display DataFrame in Streamlit
-        st.dataframe(df)
+        st.dataframe(df, use_container_width=True)
 
 
 if __name__ == "__main__":
