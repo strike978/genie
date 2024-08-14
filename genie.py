@@ -87,6 +87,7 @@ def calculate_allele_percentages(snp_lines, gene_snps):
 
 
 def main():
+    st.set_page_config(layout="wide")
     st.title("SNP Data Filter")
 
     # Path to the SNP list CSV file
@@ -114,13 +115,20 @@ def main():
         st.text_area("Filtered SNP Data", value="\n".join(
             output_lines), height=300)
 
-        # Display allele percentages for each gene
+        # Prepare data for datatable
+        data = []
         for gene, percentages in gene_percentages.items():
-            st.write(f"Gene: {gene}")
-            st.write(f"Ancestral Allele Percentage: {
-                     percentages['ancestral_percentage']:.2f}%")
-            st.write(f"Derived Allele Percentage: {
-                     percentages['derived_percentage']:.2f}%")
+            data.append({
+                'Gene': gene,
+                'Ancestral Allele Percentage': f"{percentages['ancestral_percentage']:.2f}%",
+                'Derived Allele Percentage': f"{percentages['derived_percentage']:.2f}%"
+            })
+
+        # Create DataFrame
+        df = pd.DataFrame(data)
+
+        # Display DataFrame in Streamlit
+        st.dataframe(df)
 
 
 if __name__ == "__main__":
